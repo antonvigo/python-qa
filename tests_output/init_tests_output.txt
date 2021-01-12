@@ -1,0 +1,258 @@
+# ====> Lint (error only mode) testing
+######################################################################
+No config file found, using default configuration
+************* Module calc2
+E:  5, 0: Unable to import 'flask' (import-error)
+E:  7, 0: Unable to import 'lib.db' (import-error)
+E:  8, 0: Unable to import 'lib.calc' (import-error)
+
+------------------------------------------------------------------
+Your code has been rated at 7.32/10 (previous run: 7.32/10, +0.00)
+
+
+
+# ====> Unit testing
+######################################################################
+...F..
+======================================================================
+FAIL: test_pow (unit_tests.TestCalc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/avg/qa-system/tests/unit_tests.py", line 20, in test_pow
+    self.assertEqual(calculate("2,**,3"), (8, 0, 'OK'))
+AssertionError: Tuples differ: (6, 0, 'OK') != (8, 0, 'OK')
+
+First differing element 0:
+6
+8
+
+- (6, 0, 'OK')
+?  ^
+
++ (8, 0, 'OK')
+?  ^
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+FAILED (failures=1)
+
+
+# ====> Integration testing
+######################################################################
+Discover Test Args: None
+* Test Suite args: None
+* Running test suite 'AVG QA-12 integration tests'
+  - Running Database interacation test : [  OK  ]
+Ran 1 tests, 1 succeeded, 0 failed (0 expected), 0 skipped
+
+Summary: Ran 1 tests, 1 succeeded, 0 failed (0 expected), 0 skipped
+
+
+# ====> Smoke testing
+######################################################################
+curl to http://unoume-qa12.devops.rebrain.srwx.net status:
+HTTP/1.1 200 OK
+Server: nginx/1.14.0 (Ubuntu)
+Date: Tue, 11 Aug 2020 08:23:46 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 1057
+Connection: keep-alive
+
+
+
+# ====> API testing
+######################################################################
+Discover Test Args: None
+* Test Suite args: None
+* Running test suite 'AVG QA-12 API tests'
+  - Running Cleanup page API test        : [  OK  ]
+  - Running Root page API test           : [  OK  ]
+  - Running Calc page API test #1        : [  OK  ]
+  - Running Calc page API test #2        : [  OK  ]
+  - Running Results_secret page API test : [  OK  ]
+  - Running Result/<id> page API test    : [ FAIL: ('3,+,18', '21') != ('49,-,17', '32') ]
+
+Failed tests:
+========================================
+
+-> Result/<id> page API test
+----------------------------------------
+  File "./api_testrunner.py", line 4, in <module>
+    TestRunner(dirs=["./"], pattern="api_tests.py").run()
+  File "/home/avg/.local/lib/python3.6/site-packages/integrate/discover.py", line 88, in run
+    ).run(args)
+  File "/home/avg/.local/lib/python3.6/site-packages/integrate/test.py", line 180, in run
+    func(self.results[name])
+
+('3,+,18', '21') != ('49,-,17', '32')
+
+----------------------------------------
+
+Ran 6 tests, 5 succeeded, 1 failed (0 expected), 0 skipped
+
+Summary: Ran 6 tests, 5 succeeded, 1 failed (0 expected), 0 skipped
+
+
+# ====> Interface testing
+######################################################################
+FF
+======================================================================
+FAIL: test_calc_interface (iface_tests.TestCalc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/avg/qa-system/tests/iface_tests.py", line 41, in test_calc_interface
+    (browser.find(id="operation").text, int(browser.find(id="result").text)))
+AssertionError: Tuples differ: ('5,+,2', 7) != ('3,+,18', 21)
+
+First differing element 0:
+'5,+,2'
+'3,+,18'
+
+- ('5,+,2', 7)
++ ('3,+,18', 21)
+
+======================================================================
+FAIL: test_cleanup_interface (iface_tests.TestCalc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/avg/qa-system/tests/iface_tests.py", line 50, in test_cleanup_interface
+    self.assertTrue(cleanup_form)
+AssertionError: None is not true
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.034s
+
+FAILED (failures=2)
+
+
+# ====> Load testing
+######################################################################
+Creating summariser <summary>
+Created the tree successfully using QA12-jM-plan.jmx
+Starting standalone test @ Tue Aug 11 14:43:22 NOVT 2020 (1597131802964)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +    908 in 00:00:06 =  152.2/s Avg:   898 Min:   139 Max:  2438 Err:     0 (0.00%) Active: 584 Started: 584 Finished: 0
+summary +   5092 in 00:00:10 =  533.4/s Avg:   777 Min:   120 Max:  4406 Err:     0 (0.00%) Active: 0 Started: 1000 Finished: 1000
+summary =   6000 in 00:00:16 =  386.7/s Avg:   795 Min:   120 Max:  4406 Err:     0 (0.00%)
+Tidying up ...    @ Tue Aug 11 14:43:39 NOVT 2020 (1597131819548)
+... end of run
+{
+  "Total": {
+    "transaction": "Total",
+    "sampleCount": 6000,
+    "errorCount": 0,
+    "errorPct": 0,
+    "meanResTime": 795.4128333333331,
+    "medianResTime": 626.5,
+    "minResTime": 120,
+    "maxResTime": 4406,
+    "pct1ResTime": 1424.9000000000005,
+    "pct2ResTime": 1933.8999999999996,
+    "pct3ResTime": 2405,
+    "throughput": 487.64629388816644,
+    "receivedKBytesPerSec": 1971.9355748130688,
+    "sentKBytesPerSec": 101.51360837938881
+  },
+  "HTTP Request (POST) /calc 1": {
+    "transaction": "HTTP Request (POST) /calc 1",
+    "sampleCount": 1000,
+    "errorCount": 0,
+    "errorPct": 0,
+    "meanResTime": 646.7059999999994,
+    "medianResTime": 508,
+    "minResTime": 120,
+    "maxResTime": 2021,
+    "pct1ResTime": 1374,
+    "pct2ResTime": 1435.8999999999999,
+    "pct3ResTime": 1733.99,
+    "throughput": 108.76658690450294,
+    "receivedKBytesPerSec": 74.88324586686969,
+    "sentKBytesPerSec": 26.129473025886444
+  },
+  "HTTP Request (POST) /calc 2": {
+    "transaction": "HTTP Request (POST) /calc 2",
+    "sampleCount": 1000,
+    "errorCount": 0,
+    "errorPct": 0,
+    "meanResTime": 679.9749999999996,
+    "medianResTime": 609,
+    "minResTime": 123,
+    "maxResTime": 2214,
+    "pct1ResTime": 1187.9,
+    "pct2ResTime": 1277.6499999999996,
+    "pct3ResTime": 1667.97,
+    "throughput": 107.97969981643452,
+    "receivedKBytesPerSec": 80.45753023431595,
+    "sentKBytesPerSec": 26.362231400496707
+  },
+  "HTTP Request (POST) /calc 3": {
+    "transaction": "HTTP Request (POST) /calc 3",
+    "sampleCount": 1000,
+    "errorCount": 0,
+    "errorPct": 0,
+    "meanResTime": 678.301,
+    "medianResTime": 555.5,
+    "minResTime": 129,
+    "maxResTime": 2115,
+    "pct1ResTime": 1264.1,
+    "pct2ResTime": 1786.8999999999999,
+    "pct3ResTime": 2034.98,
+    "throughput": 105.19671786240269,
+    "receivedKBytesPerSec": 77.97295786871449,
+    "sentKBytesPerSec": 25.271867767725645
+  },
+  "HTTP Request (GET) /results_secret": {
+    "transaction": "HTTP Request (GET) /results_secret",
+    "sampleCount": 1000,
+    "errorCount": 0,
+    "errorPct": 0,
+    "meanResTime": 1022.6149999999997,
+    "medianResTime": 925.5,
+    "minResTime": 309,
+    "maxResTime": 4406,
+    "pct1ResTime": 1594.9,
+    "pct2ResTime": 1830.9999999999986,
+    "pct3ResTime": 4160.89,
+    "throughput": 113.58473421172194,
+    "receivedKBytesPerSec": 2288.111227850977,
+    "sentKBytesPerSec": 16.74931139254884
+  },
+  "HTTP Request (POST) /calc 4": {
+    "transaction": "HTTP Request (POST) /calc 4",
+    "sampleCount": 1000,
+    "errorCount": 0,
+    "errorPct": 0,
+    "meanResTime": 687.2519999999996,
+    "medianResTime": 543.5,
+    "minResTime": 130,
+    "maxResTime": 2242,
+    "pct1ResTime": 1331.6999999999998,
+    "pct2ResTime": 1588.3499999999976,
+    "pct3ResTime": 2097.8100000000004,
+    "throughput": 112.3721766490617,
+    "receivedKBytesPerSec": 83.40122485672548,
+    "sentKBytesPerSec": 27.324874985953482
+  },
+  "HTTP Request (GET) /": {
+    "transaction": "HTTP Request (GET) /",
+    "sampleCount": 1000,
+    "errorCount": 0,
+    "errorPct": 0,
+    "meanResTime": 1057.6280000000013,
+    "medianResTime": 932,
+    "minResTime": 239,
+    "maxResTime": 2833,
+    "pct1ResTime": 2041,
+    "pct2ResTime": 2239.7999999999997,
+    "pct3ResTime": 2424,
+    "throughput": 101.05092966855295,
+    "receivedKBytesPerSec": 121.37953466046886,
+    "sentKBytesPerSec": 13.519509145109135
+  }
+}
+
+
+# ====> Clean trash
+######################################################################

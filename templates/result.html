@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+table {
+  border-collapse: collapse; border: 1px solid black;
+}
+td,th {
+  border-collapse: collapse; border: 1px solid black; padding: 0.5em;
+}
+</style>
+</head>
+<body>
+    <p>Выражение:</p>
+    <pre id="operation">{{ operation }}</pre>
+    <p>Код исполнения:</p>
+    <pre id="result_id">{{ result_code }}</pre>
+    <p>Результат:</p>
+    <pre id="result">{{ result }}</pre>
+{% if result_code == 0 %}
+    <a id="result_link" href="/result/{{ result_id }}">Ссылка на результат</a>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,141 @@
+# ====> Lint (error only mode) testing
+######################################################################
+Using config file /home/avg/.pylintrc
+
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+
+
+
+# ====> Unit testing
+######################################################################
+F.....
+======================================================================
+FAIL: test_dbcon (unit_tests.TestCalc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/avg/qa-system/tests/unit_tests.py", line 34, in test_dbcon
+    (2, 'result', 'integer', 0, None, 0)])
+AssertionError: Lists differ: [(0, [68 chars] 'res_code', 'integer', 0, None, 0), (3, 'resu[23 chars], 0)] != [(0, [68 chars] 'result', 'integer', 0, None, 0)]
+
+First differing element 2:
+(2, 'res_code', 'integer', 0, None, 0)
+(2, 'result', 'integer', 0, None, 0)
+
+First list contains 1 additional elements.
+First extra element 3:
+(3, 'result', 'integer', 0, None, 0)
+
+  [(0, 'id', 'blob', 0, None, 0),
+   (1, 'operation', 'text', 0, None, 0),
+-  (2, 'res_code', 'integer', 0, None, 0),
+-  (3, 'result', 'integer', 0, None, 0)]
+?   ^
+
++  (2, 'result', 'integer', 0, None, 0)]
+?   ^
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.008s
+
+FAILED (failures=1)
+
+
+# ====> Integration testing
+######################################################################
+Discover Test Args: None
+* Test Suite args: None
+* Running test suite 'AVG QA-12 integration tests'
+  - Running Database interacation test : [ FAIL: did raise OperationalError: table results has 4 columns but 3 values were supplied ]
+
+Failed tests:
+========================================
+
+-> Database interacation test
+----------------------------------------
+
+did raise OperationalError: table results has 4 columns but 3 values were supplied
+
+----------------------------------------
+
+Ran 1 tests, 0 succeeded, 1 failed (0 expected), 0 skipped
+
+Summary: Ran 1 tests, 0 succeeded, 1 failed (0 expected), 0 skipped
+
+
+# ====> Smoke testing
+######################################################################
+curl to http://unoume-qa12.devops.rebrain.srwx.net status:
+HTTP/1.1 200 OK
+Server: nginx/1.14.0 (Ubuntu)
+Date: Tue, 11 Aug 2020 14:36:59 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 1185
+Connection: keep-alive
+
+
+
+# ====> API testing
+######################################################################
+Discover Test Args: None
+* Test Suite args: None
+* Running test suite 'AVG QA-12 API tests'
+  - Running Cleanup page API test        : [  OK  ]
+  - Running Root page API test           : [  OK  ]
+  - Running Calc page API test #1        : [ FAIL: did raise AttributeError: 'NoneType' object has no attribute 'string' ]
+  - Running Calc page API test #2        : [ FAIL: did raise AttributeError: 'NoneType' object has no attribute 'string' ]
+  - Running Results_secret page API test : [ SKIP: Dependency ]
+  - Running Result/<id> page API test    : [ SKIP: Dependency ]
+
+Failed tests:
+========================================
+
+-> Calc page API test #1
+----------------------------------------
+
+did raise AttributeError: 'NoneType' object has no attribute 'string'
+
+----------------------------------------
+
+-> Calc page API test #2
+----------------------------------------
+
+did raise AttributeError: 'NoneType' object has no attribute 'string'
+
+----------------------------------------
+
+Skipped tests:
+========================================
+
+- Results_secret page API test
+- Result/<id> page API test
+
+Ran 6 tests, 2 succeeded, 2 failed (0 expected), 2 skipped
+
+Summary: Ran 6 tests, 2 succeeded, 2 failed (0 expected), 2 skipped
+
+
+# ====> Interface testing
+######################################################################
+E.
+======================================================================
+ERROR: test_calc_interface (iface_tests.TestCalc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/avg/qa-system/tests/iface_tests.py", line 30, in test_calc_interface
+    result_raw = browser.find(id="result").text
+AttributeError: 'NoneType' object has no attribute 'text'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.035s
+
+FAILED (errors=1)
+
+
+# ====> Load testing
+######################################################################
+
+
+# ====> Clean trash
+######################################################################

@@ -1,0 +1,72 @@
+# ====> Lint (error only mode) testing
+######################################################################
+Using config file /home/avg/.pylintrc
+
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+
+
+
+# ====> Unit testing
+######################################################################
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.010s
+
+OK
+
+
+# ====> Integration testing
+######################################################################
+Discover Test Args: None
+* Test Suite args: None
+* Running test suite 'AVG QA-12 integration tests'
+  - Running Database interacation test : [  OK  ]
+Ran 1 tests, 1 succeeded, 0 failed (0 expected), 0 skipped
+
+Summary: Ran 1 tests, 1 succeeded, 0 failed (0 expected), 0 skipped
+
+
+# ====> Smoke testing
+######################################################################
+curl to http://unoume-qa12.devops.rebrain.srwx.net status:
+HTTP/1.1 200 OK
+Server: nginx/1.14.0 (Ubuntu)
+Date: Tue, 11 Aug 2020 13:58:40 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 1185
+Connection: keep-alive
+
+
+
+# ====> API testing
+######################################################################
+Discover Test Args: None
+* Test Suite args: None
+* Running test suite 'AVG QA-12 API tests'
+  - Running Cleanup page API test        : [  OK  ]
+  - Running Root page API test           : [  OK  ]
+  - Running Calc page API test #1        : [  OK  ]
+  - Running Calc page API test #2        : [  OK  ]
+  - Running Results_secret page API test : [  OK  ]
+  - Running Result/<id> page API test    : [  OK  ]
+Ran 6 tests, 6 succeeded, 0 failed (0 expected), 0 skipped
+
+Summary: Ran 6 tests, 6 succeeded, 0 failed (0 expected), 0 skipped
+
+
+# ====> Interface testing
+######################################################################
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.041s
+
+OK
+
+
+# ====> Load testing
+######################################################################
+
+
+# ====> Clean trash
+######################################################################

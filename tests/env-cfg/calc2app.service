@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn instance to serve calc2 Python application
+After=network.target
+
+[Service]
+User=avg
+Group=www-data
+WorkingDirectory=/home/avg/qa-system/tests
+#Environment="/home/sammy/myproject/myprojectenv/bin"
+Environment="PYTHONPATH=/home/avg/qa-system/lib:/home/avg/qa-system"
+ExecStart=/home/avg/.local/bin/gunicorn wsgi:APP
+#ExecStart=/home/sammy/myproject/myprojectenv/bin/gunicorn --workers 3 --bind unix:myproject.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
